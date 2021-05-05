@@ -22,7 +22,7 @@ jobs:
       - name: 'QHUB_GH_BRANCH set to branch (not a tag)'
         if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') }}
         run: |
-          echo "QHUB_GH_BRANCH=2${GITHUB_REF:11:}" >> $GITHUB_ENV
+          echo "QHUB_GH_BRANCH=2${GITHUB_REF:11}" >> $GITHUB_ENV
 
       - name: 'print QHUB_GH_BRANCH'
         run: |
