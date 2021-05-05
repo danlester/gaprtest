@@ -15,12 +15,12 @@ jobs:
 
     steps:
       - name: 'QHUB_GH_BRANCH set to PR'
-        if: ${{ github.event_name == 'pull_request' && startsWith(github.base_ref, "refs/heads/")  }}
+        if: ${{ github.event_name == 'pull_request' && startsWith(github.base_ref, 'refs/heads/')  }}
         run: |
           echo "QHUB_GH_BRANCH=${GITHUB_BASE_REF:11}" >> $GITHUB_ENV
 
       - name: 'QHUB_GH_BRANCH set to branch (not a tag)'
-        if: ${{ github.event_name == 'push' && startsWith(github.base_ref, "refs/heads/") }}
+        if: ${{ github.event_name == 'push' && startsWith(github.base_ref, 'refs/heads/') }}
         run: |
           echo "QHUB_GH_BRANCH=${GITHUB_REF:11:}" >> $GITHUB_ENV
 
