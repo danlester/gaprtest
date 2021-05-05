@@ -1,0 +1,30 @@
+name: "Tests"
+
+on:
+  pull_request: # Workflow only runs for PR against main anyway
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    name: "Tests"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'QHUB_GH_BRANCH set to PR'
+        if: ${{ github.event_name == 'pull_request' && startsWith(github.base_ref, "refs/heads/")  }}
+        run: |
+          echo "QHUB_GH_BRANCH=${GITHUB_BASE_REF:11}" >> $GITHUB_ENV
+
+      - name: 'QHUB_GH_BRANCH set to branch (not a tag)'
+        if: ${{ github.event_name == 'push' && startsWith(github.base_ref, "refs/heads/") }}
+        run: |
+          echo "QHUB_GH_BRANCH=${GITHUB_REF:11:}" >> $GITHUB_ENV
+
+      - name: 'print QHUB_GH_BRANCH'
+        run: |
+          echo "BRANCH ${QHUB_GH_BRANCH}"
+
